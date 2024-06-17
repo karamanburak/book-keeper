@@ -1,6 +1,10 @@
+import SearchComp from "../components/SearchComp";
 
 const Home = () => {
-    return <div>Home</div>;
+    return (
+        <div>
+            <SearchComp />
+        </div>);
 };
 
 export default Home;
