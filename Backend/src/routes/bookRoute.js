@@ -13,7 +13,15 @@ router
     .post(BookPostController.create)
 
 router
-    .route("/:id")
+    .route("/post/many")
+    .delete(BookPostController.deleteMany)
+
+router
+    .route("/post/:id")
     .get(BookPostController.read)
+    .put(BookPostController.update)
+    .delete(BookPostController.delete)
+
+
 
 module.exports = router;
