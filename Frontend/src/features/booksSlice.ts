@@ -8,7 +8,6 @@ export interface Book {
   isbn: number;
   genre: string;
   date: string;
-  type: string;
   image: string;
 }
 

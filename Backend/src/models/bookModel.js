@@ -7,6 +7,7 @@ const bookPostSchema = new mongoose.Schema(
             type: String,
             trim: true,
             required: true,
+            unique: true
         },
         author: {
             type: String,
@@ -18,14 +19,14 @@ const bookPostSchema = new mongoose.Schema(
             unique: true
         },
         genre: {
-            type: string,
+            type: String,
         },
         publicationYear: {
-            type: string,
+            type: Number,
         },
         image: {
-            type: string,
-            require: true,
+            type: String,
+            required: true,
             unique: true
         },
     },

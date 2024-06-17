@@ -13,7 +13,8 @@ app.all('/', (req, res) => {
     res.send("<h1 style='text-align:center;margin-top:150px'>WELCOME TO BOOK-KEEPER API</h1>");
 })
 
-app.use("/blog", require("./src/routes/blogRoute"))
+// app.use("/book(s)?", require("./src/routes/bookRoute"))
+app.use("/books", require("./src/routes/bookRoute"))
 
 // errorHandler:
 app.use(require('./src/middlewares/errorHandler'))
