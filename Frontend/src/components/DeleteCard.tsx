@@ -5,14 +5,24 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import Slide from '@mui/material/Slide';
+import Slide, { SlideProps } from '@mui/material/Slide';
 import { MdDeleteOutline } from "react-icons/md";
+import axios from 'axios';
 
-const Transition = React.forwardRef(function Transition(props, ref) {
+interface IDeleteCard {
+    id: string;
+    getData: () => void;
+    Slide: () => void
+
+}
+
+const Transition = React.forwardRef<HTMLDivElement, SlideProps>(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function DeleteCard() {
+const PORT = import.meta.env.VITE_PORT || 8000
+
+const DeleteCard: React.FC<IDeleteCard> = ({ id, getData }) => {
     const [open, setOpen] = React.useState(false);
 
     const handleClickOpen = () => {
@@ -22,6 +32,22 @@ export default function DeleteCard() {
     const handleClose = () => {
         setOpen(false);
     };
+
+    const handleDelete = async () => {
+        try {
+            await axios.delete(`http://127.0.0.1:${PORT}/books/post/${id}`);
+            getData()
+            setOpen(false);
+        } catch (error) {
+            console.error("Failed to delete the book:", error);
+        }
+    };
+
+    React.useEffect(() => {
+
+    }, [
+
+    ])
 
     return (
         <React.Fragment>
@@ -43,9 +69,11 @@ export default function DeleteCard() {
                 </DialogContent>
                 <DialogActions>
                     <Button sx={{ color: 'gray' }} onClick={handleClose}>Cancel</Button>
-                    <Button sx={{ color: 'red' }} onClick={handleClose}>Delete</Button>
+                    <Button sx={{ color: 'red' }} onClick={handleDelete}>Delete</Button>
                 </DialogActions>
             </Dialog>
         </React.Fragment>
     );
 }
+
+export default DeleteCard

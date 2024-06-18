@@ -13,7 +13,7 @@ const bookPostSchema = new mongoose.Schema(
             type: String,
             required: true
         },
-        isbn: {
+        ISBN: {
             type: Number,
             required: true,
             unique: true

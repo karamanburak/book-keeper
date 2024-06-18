@@ -7,6 +7,7 @@ import { Button } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
 import { fetchFail, fetchStart, getSuccessBook } from "../features/booksSlice";
 import { EventFunc } from "../models/models";
+// import { MdDeleteOutline } from "react-icons/md";
 
 
 const PORT = import.meta.env.VITE_PORT || 8000
@@ -21,13 +22,15 @@ const Home = () => {
             const { data } = await axios(`http://127.0.0.1:${PORT}/books/search?q=${search}`)
             // const { data } = await axios(`http://127.0.0.1:${PORT}/books/`)
             dispatch(getSuccessBook(data.post))
-            console.log(data.post);
+            // console.log(data.post);
 
         } catch (error) {
             console.log(error);
             dispatch(fetchFail())
         }
     }
+
+
 
     useEffect(() => {
         getData()
@@ -61,13 +64,13 @@ const Home = () => {
                                 <div className="flex flex-col justify-between p-4 leading-normal">
                                     <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{book.title}</h5>
                                     <p className="mb-3 font-normal text-gray-700 dark:text-gray-400"> <span className="font-bold">ISBN:</span> {book.ISBN}</p>
-                                    <p className="mb-3 font-normal text-gray-700 dark:text-gray-400"><span className="font-bold">Publication Year: </span> {book.date}</p>
+                                    <p className="mb-3 font-normal text-gray-700 dark:text-gray-400"><span className="font-bold">Publication Year: </span> {book.publicationYear}</p>
                                     <p className="mb-3 font-normal text-gray-700 dark:text-gray-400"><span className="font-bold">Genre: </span> {book.genre}</p>
                                 </div>
                                 <div className="flex justify-center gap-3 pb-4">
                                     <Button variant="contained"> <CiEdit className="size-6" /></Button>
                                     {/* <button> <MdDeleteOutline className="size-8 hover:text-red-700" /></button> */}
-                                    <DeleteCard />
+                                    <DeleteCard id={book._id} getData={getData} />
                                 </div>
                             </div>
                         )
