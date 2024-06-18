@@ -1,15 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-
-export interface Book {
-  id: number;
-  title: string;
-  author: string;
-  isbn: number;
-  genre: string;
-  date: string;
-  image: string;
-}
+import { Book } from "../models/models";
 
 // Define a type for the slice state
 interface BooksState {

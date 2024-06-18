@@ -9,6 +9,9 @@ router
     .get(BookPostController.list)
 
 router
+    .get("/search", BookPostController.search)
+
+router
     .route("/post")
     .post(BookPostController.create)
 
