@@ -1,7 +1,16 @@
 
+// interface ISearchComp {
+//     handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+// }
+
+import { EventFunc } from "../models/models";
+
+interface ISearchComp {
+    handleChange: EventFunc
+}
 
 
-const SearchComp = () => {
+const SearchComp: React.FC<ISearchComp> = ({ handleChange }) => {
     return (
         <div className="mt-5">
             <div className="relative w-6/12 mx-auto">
@@ -25,6 +34,7 @@ const SearchComp = () => {
                     id="default-search"
                     className="block outline-none w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-gray-900 focus:border-gray-900 focus:bg-gray-700 focus:text-white"
                     placeholder="Search books..."
+                    onChange={handleChange}
                 />
             </div>
         </div>
