@@ -11,7 +11,10 @@ module.exports.BookPostController = {
         res.status(200).send({
             error: false,
             post: data,
+            query: req.query,
+
         })
+        console.log(req.query);
     },
     create: async (req, res) => {
         const data = await BookPost.create(req.body)
@@ -28,6 +31,7 @@ module.exports.BookPostController = {
         res.status(200).send({
             error: false,
             post: data,
+
         })
     },
     update: async (req, res) => {
