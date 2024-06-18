@@ -11,8 +11,10 @@ module.exports.BookPostController = {
         res.status(200).send({
             error: false,
             post: data,
+            query: req.query,
 
         })
+        console.log(req.query);
     },
     create: async (req, res) => {
         const data = await BookPost.create(req.body)
@@ -28,27 +30,6 @@ module.exports.BookPostController = {
 
         res.status(200).send({
             error: false,
-            post: data,
-
-        })
-    },
-    search: async (req, res) => {
-        // const query = {};
-
-        // if (req.query.name) {
-        //     // Case insensitive (büyük-küçük harf duyarsız) arama için 'i' bayrağını kullanıyoruz
-        //     query.name = { $regex: req.query.name, $options: 'i' };
-        // }
-
-        // if (req.query.author) {
-        //     query.author = { $regex: req.query.author, $options: 'i' };
-        // }
-        // const data = await BookPost.find(query)
-        const data = await BookPost.find()
-
-        res.status(200).send({
-            error: false,
-            query: req.query,
             post: data,
 
         })
