@@ -33,18 +33,17 @@ module.exports.BookPostController = {
         })
     },
     search: async (req, res) => {
-        // const query = {};
-
-        // if (req.query.name) {
-        //     // Case insensitive (büyük-küçük harf duyarsız) arama için 'i' bayrağını kullanıyoruz
-        //     query.name = { $regex: req.query.name, $options: 'i' };
-        // }
-
-        // if (req.query.author) {
-        //     query.author = { $regex: req.query.author, $options: 'i' };
-        // }
-        // const data = await BookPost.find(query)
-        const data = await BookPost.find()
+        const query = {};
+        if (req.query.q) {
+            // Search across multiple fields
+            const searchRegex = { $regex: req.query.q, $options: 'i' };
+            query.$or = [
+                { title: searchRegex },
+                { author: searchRegex },
+                { genre: searchRegex }
+            ];
+        }
+        const data = await BookPost.find(query)
 
         res.status(200).send({
             error: false,

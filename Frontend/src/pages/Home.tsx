@@ -60,7 +60,7 @@ const Home = () => {
                                 </div>
                                 <div className="flex flex-col justify-between p-4 leading-normal">
                                     <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{book.title}</h5>
-                                    <p className="mb-3 font-normal text-gray-700 dark:text-gray-400"> <span className="font-bold">ISBN:</span> {book.isbn}</p>
+                                    <p className="mb-3 font-normal text-gray-700 dark:text-gray-400"> <span className="font-bold">ISBN:</span> {book.ISBN}</p>
                                     <p className="mb-3 font-normal text-gray-700 dark:text-gray-400"><span className="font-bold">Publication Year: </span> {book.date}</p>
                                     <p className="mb-3 font-normal text-gray-700 dark:text-gray-400"><span className="font-bold">Genre: </span> {book.genre}</p>
                                 </div>

@@ -13,7 +13,7 @@ const bookPostSchema = new mongoose.Schema(
             type: String,
             required: true
         },
-        ISBN: {
+        isbn: {
             type: Number,
             required: true,
             unique: true
@@ -23,6 +23,7 @@ const bookPostSchema = new mongoose.Schema(
         },
         publicationYear: {
             type: Number,
+            required: true
         },
         image: {
             type: String,
