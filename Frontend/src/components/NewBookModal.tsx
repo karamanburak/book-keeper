@@ -1,10 +1,9 @@
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import { EventFunc } from '../models/models';
-import { Button, InputLabel, Select, TextField } from '@mui/material';
+import { Button, InputLabel, MenuItem, Select, TextField } from '@mui/material';
 import axios from 'axios';
 import { useState } from 'react';
-
 
 const style = {
     position: 'absolute',
@@ -18,19 +17,18 @@ const style = {
     p: 4,
 };
 
-
 interface INewBookComp {
     handleChange: EventFunc
     open: boolean,
     handleClose: () => void,
+    initialState: any;
 }
 const PORT = import.meta.env.VITE_PORT || 8000
 
 const NewBookModal: React.FC<INewBookComp> = ({ open, handleClose, initialState }) => {
     const [info, setInfo] = useState(initialState)
 
-
-    const handleSubmit = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
         axios.post(`http://127.0.0.1:${PORT}/books/post`, info)
             .then(res => {
@@ -45,8 +43,6 @@ const NewBookModal: React.FC<INewBookComp> = ({ open, handleClose, initialState 
     const handleChange = (e) => {
         setInfo({ ...info, [e.target.name]: e.target.value })
     }
-
-
 
     return (
         <Modal
@@ -100,6 +96,14 @@ const NewBookModal: React.FC<INewBookComp> = ({ open, handleClose, initialState 
                         value={info.publicationYear}
                         color="success"
                     >
+                        <MenuItem value="2024"><em></em></MenuItem>
+                        <MenuItem value={2024}>2024</MenuItem>
+                        <MenuItem value={2023}>2023</MenuItem>
+                        <MenuItem value={2022}>2022</MenuItem>
+                        <MenuItem value={2021}>2021</MenuItem>
+                        <MenuItem value={2020}>2020</MenuItem>
+                        <MenuItem value={2019}>2019</MenuItem>
+                        <MenuItem value={2018}>2018</MenuItem>
                     </Select>
                     <TextField
                         label="Genre"
@@ -122,7 +126,6 @@ const NewBookModal: React.FC<INewBookComp> = ({ open, handleClose, initialState 
                         color="success"
                     />
                     <Button
-                        onClick={handleClose}
                         variant="contained"
                         type="submit">
                         Create New Book
