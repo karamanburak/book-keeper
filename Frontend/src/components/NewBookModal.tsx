@@ -1,6 +1,9 @@
-import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
+import { EventFunc } from '../models/models';
+import { Button, InputLabel, Select, TextField } from '@mui/material';
+import axios from 'axios';
+import { useState } from 'react';
 
 
 const style = {
@@ -17,13 +20,34 @@ const style = {
 
 
 interface INewBookComp {
+    handleChange: EventFunc
     open: boolean,
     handleClose: () => void,
-    initialState: {}
-
 }
+const PORT = import.meta.env.VITE_PORT || 8000
 
 const NewBookModal: React.FC<INewBookComp> = ({ open, handleClose, initialState }) => {
+    const [info, setInfo] = useState(initialState)
+
+
+    const handleSubmit = (e: React.ChangeEvent<HTMLInputElement>) => {
+        e.preventDefault();
+        axios.post(`http://127.0.0.1:${PORT}/books/post`, info)
+            .then(res => {
+                console.log(res);
+                handleClose();
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }
+
+    const handleChange = (e) => {
+        setInfo({ ...info, [e.target.name]: e.target.value })
+    }
+
+
+
     return (
         <Modal
             open={open}
@@ -32,14 +56,80 @@ const NewBookModal: React.FC<INewBookComp> = ({ open, handleClose, initialState 
             aria-describedby="modal-modal-description"
         >
             <Box sx={style}>
-                <Typography id="modal-modal-title" variant="h6" component="h2">
-                    Book Name
-                </Typography>
-                <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                    Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-                </Typography>
+                <Box
+                    component="form"
+                    onSubmit={handleSubmit}
+                    sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+                    <TextField
+                        label="Book Name"
+                        name="title"
+                        id="title"
+                        type="text"
+                        variant="outlined"
+                        onChange={handleChange}
+                        value={info.title}
+                        color="success"
+                    />
+                    <TextField
+                        label="Author Name"
+                        name="author"
+                        id="author"
+                        type="text"
+                        variant="outlined"
+                        onChange={handleChange}
+                        value={info.author}
+                        color="success"
+                    />
+                    <TextField
+                        label="ISBN"
+                        name="ISBN"
+                        id="ISBN"
+                        type="text"
+                        variant="outlined"
+                        onChange={handleChange}
+                        value={info.ISBN}
+                        color="success"
+                    />
+                    <InputLabel id="demo-simple-publicationYear-label">Publication Year</InputLabel>
+                    <Select
+                        labelId="demo-simple-publicationYear-label"
+                        label="Publication Year"
+                        id="publicationYear"
+                        name="publicationYear"
+                        onChange={handleChange}
+                        value={info.publicationYear}
+                        color="success"
+                    >
+                    </Select>
+                    <TextField
+                        label="Genre"
+                        name="genre"
+                        id="genre"
+                        type="text"
+                        variant="outlined"
+                        onChange={handleChange}
+                        value={info.genre}
+                        color="success"
+                    />
+                    <TextField
+                        label="Book Image"
+                        name="image"
+                        id="image"
+                        type="text"
+                        variant="outlined"
+                        onChange={handleChange}
+                        value={info.image}
+                        color="success"
+                    />
+                    <Button
+                        onClick={handleClose}
+                        variant="contained"
+                        type="submit">
+                        Create New Book
+                    </Button>
+                </Box>
             </Box>
-        </Modal>
+        </Modal >
     )
 };
 
