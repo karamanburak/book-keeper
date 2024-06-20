@@ -1,9 +1,8 @@
 import Button from '@mui/material/Button';
 import { useState } from 'react';
 import NewBookModal from './NewBookModal';
-import { Book } from '../models/models';
 
-const Navbar: React.FC<Book[]> = () => {
+const Navbar = () => {
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);

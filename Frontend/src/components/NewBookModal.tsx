@@ -4,6 +4,7 @@ import { EventFunc } from '../models/models';
 import { Button, InputLabel, MenuItem, Select, TextField } from '@mui/material';
 import axios from 'axios';
 import { useState } from 'react';
+import { toastErrorNotify, toastSuccessNotify } from '../helper/ToastNotify';
 
 const style = {
     position: 'absolute',
@@ -34,15 +35,20 @@ const NewBookModal: React.FC<INewBookComp> = ({ open, handleClose, initialState 
             .then(res => {
                 console.log(res);
                 handleClose();
+                setInfo(initialState)
+                toastSuccessNotify("Book successfully added")
             })
             .catch(err => {
                 console.log(err);
+                handleClose();
+                toastErrorNotify("Uppss! Book could not be added!")
             })
     }
 
     const handleChange = (e) => {
         setInfo({ ...info, [e.target.name]: e.target.value })
     }
+
 
     return (
         <Modal
@@ -96,7 +102,7 @@ const NewBookModal: React.FC<INewBookComp> = ({ open, handleClose, initialState 
                         value={info.publicationYear}
                         color="success"
                     >
-                        <MenuItem value="2024"><em></em></MenuItem>
+                        <MenuItem value={2024}><em></em></MenuItem>
                         <MenuItem value={2024}>2024</MenuItem>
                         <MenuItem value={2023}>2023</MenuItem>
                         <MenuItem value={2022}>2022</MenuItem>

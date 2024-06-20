@@ -34,3 +34,21 @@ export const toastSuccessNotify: msgFunc = (msg) => {
         },
     });
 };
+
+export const toastErrorNotify: msgFunc = (msg) => {
+    toast.error(msg, {
+        autoClose: 1500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        position: "top-center",
+        draggablePercent: 60,
+        theme: "light",
+        progressStyle: {
+            background: "#00345b",
+            height: "5px",
+        },
+    });
+};
