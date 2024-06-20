@@ -1,15 +1,34 @@
-import { Link } from "react-router-dom";
+import Button from '@mui/material/Button';
+import { useState } from 'react';
+import NewBookModal from './NewBookModal';
 
 const Navbar = () => {
+    const [open, setOpen] = useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
+    const [initialState, setInitialState] = useState({
+        title: "",
+        author: "",
+        ISBN: 0,
+        genre: "",
+        publicationYear: 0,
+        image: "",
+    })
+
     return (
-        <div className="flex justify-between h-[80px] text-white bg-main-green items-center px-5 text-xl">
-            <h2 className="font-bold size-[4re]">Book Store</h2>
-            <div>
-                <Link to="/" className="mr-10">Home</Link>
-                <Link to="" >Add New Book</Link>
+        <div>
+            <div className="flex justify-between h-[80px] text-white bg-main-green items-center px-5 text-xl">
+                <h2 className="font-bold size-[4re]">Book Store</h2>
+                <Button sx={{ color: "white", fontWeight: "bold" }} onClick={handleOpen}>Add New Book</Button>
             </div>
+            <NewBookModal
+                open={open}
+                handleClose={handleClose}
+                initialState={initialState}
+
+            />
         </div>
-    )
+    );
 };
 
 export default Navbar;
