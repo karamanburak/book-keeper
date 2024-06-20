@@ -12,7 +12,6 @@ import axios from 'axios';
 interface IDeleteCard {
     id: string;
     getData: () => void;
-    Slide: () => void
 
 }
 
