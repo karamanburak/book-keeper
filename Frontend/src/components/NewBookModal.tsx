@@ -1,6 +1,6 @@
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
-import { EventFunc } from '../models/models';
+import { IInitialState } from '../models/models';
 import { Button, InputLabel, MenuItem, Select, TextField } from '@mui/material';
 import axios from 'axios';
 import { useState } from 'react';
@@ -19,23 +19,21 @@ const style = {
 };
 
 interface INewBookComp {
-    handleChange: EventFunc
     open: boolean,
     handleClose: () => void,
-    initialState: any;
+    initialState: IInitialState;
 }
 const PORT = import.meta.env.VITE_PORT || 8000
 
 const NewBookModal: React.FC<INewBookComp> = ({ open, handleClose, initialState }) => {
     const [info, setInfo] = useState(initialState)
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         axios.post(`http://127.0.0.1:${PORT}/books/post`, info)
             .then(res => {
                 console.log(res);
                 handleClose();
-                setInfo(initialState)
                 toastSuccessNotify("Book successfully added")
             })
             .catch(err => {
@@ -43,9 +41,10 @@ const NewBookModal: React.FC<INewBookComp> = ({ open, handleClose, initialState 
                 handleClose();
                 toastErrorNotify("Uppss! Book could not be added!")
             })
+        setInfo(initialState)
     }
 
-    const handleChange = (e) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         setInfo({ ...info, [e.target.name]: e.target.value })
     }
 
@@ -86,7 +85,7 @@ const NewBookModal: React.FC<INewBookComp> = ({ open, handleClose, initialState 
                         label="ISBN"
                         name="ISBN"
                         id="ISBN"
-                        type="text"
+                        type="number"
                         variant="outlined"
                         onChange={handleChange}
                         value={info.ISBN}
@@ -101,15 +100,20 @@ const NewBookModal: React.FC<INewBookComp> = ({ open, handleClose, initialState 
                         onChange={handleChange}
                         value={info.publicationYear}
                         color="success"
+                        type="number"
                     >
-                        <MenuItem value={2024}><em></em></MenuItem>
+                        {/* <MenuItem value={2024}><em></em></MenuItem>
                         <MenuItem value={2024}>2024</MenuItem>
                         <MenuItem value={2023}>2023</MenuItem>
                         <MenuItem value={2022}>2022</MenuItem>
                         <MenuItem value={2021}>2021</MenuItem>
                         <MenuItem value={2020}>2020</MenuItem>
                         <MenuItem value={2019}>2019</MenuItem>
-                        <MenuItem value={2018}>2018</MenuItem>
+                        <MenuItem value={2018}>2018</MenuItem> */}
+
+                        {[...Array(174)].map((_, index) =>
+                            <MenuItem key={2024 - index} value={2024 - index}>{2024 - index}</MenuItem>
+                        )}
                     </Select>
                     <TextField
                         label="Genre"

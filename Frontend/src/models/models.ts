@@ -9,3 +9,12 @@ export interface Book {
   publicationYear: number;
   image: string;
 }
+
+export interface IInitialState {
+  title: string;
+  author: string;
+  ISBN: number;
+  publicationYear: number;
+  genre: string;
+  image: string;
+}
