@@ -1,30 +1,26 @@
-# React + TypeScript + Vite
+# Full Stack Project
+This is a full stack project built with React (TypeScript), Node.js, and MongoDB.
+## Introduction
+This project is a full stack web application that uses a React frontend with TypeScript, a Node.js backend, and a MongoDB database. It demonstrates a typical setup for a modern web application with client-server architecture.
+## Features
+- CRUD operations for user data
+- Responsive design
+- RESTful API
+## Technologies
+### Frontend
+- React
+- TypeScript
+- Axios (for API requests)
+- React Router (for navigation)
+- Tailwind CSS (for styling)
+### Backend
+- Node.js
+- Express
+- MongoDB
+- Mongoose (for MongoDB object modeling)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## Getting Started
+### Prerequisites
+- Node.js (v14 or later)
+- npm (v6 or later) or yarn
+- MongoDB (running locally or MongoDB Atlas)
