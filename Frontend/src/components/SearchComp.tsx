@@ -12,7 +12,7 @@ interface ISearchComp {
 
 const SearchComp: React.FC<ISearchComp> = ({ handleChange }) => {
     return (
-        <div className="mt-5">
+        <div className="mt-5 " style={{ paddingTop: "5rem" }}>
             <div className="relative w-6/12 mx-auto">
                 <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                     <svg
