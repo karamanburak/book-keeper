@@ -1,17 +1,23 @@
 import SearchComp from "../components/SearchComp";
-import { CiEdit } from "react-icons/ci";
-import DeleteCard from "../components/DeleteCard";
-import { Button } from "@mui/material";
+// import { CiEdit } from "react-icons/ci";
+// import { Button } from "@mui/material";
 import { useAppSelector } from "../app/hooks";
 import { EventFunc } from "../models/models";
 import useBookCall from "../hooks/useBookCall";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import DeleteBookCard from "../components/DeleteBookCard";
+import UpdateBook from "../components/UpdateBook";
 
 
 const Home = () => {
     const { loading, error, booksList } = useAppSelector(state => state.books)
     const { getData, search, setSearch } = useBookCall()
+    const [open, setOpen] = useState(false);
 
+
+    const handleClose = () => {
+        setOpen(false);
+    };
 
     useEffect(() => {
         getData()
@@ -50,9 +56,15 @@ const Home = () => {
                                     <p className="mb-3 font-normal text-gray-700 dark:text-gray-400"><span className="font-bold">Genre: </span> {book.genre}</p>
                                 </div>
                                 <div className="flex justify-center gap-3 pb-4">
-                                    <Button variant="contained"> <CiEdit className="size-6" /></Button>
+                                    {/* <Button variant="contained"> <CiEdit className="size-6" /></Button> */}
                                     {/* <button> <MdDeleteOutline className="size-8 hover:text-red-700" /></button> */}
-                                    <DeleteCard id={book._id} getData={getData} />
+                                    <UpdateBook />
+                                    <DeleteBookCard
+                                        id={book._id}
+                                        open={open}
+                                        setOpen={setOpen}
+                                        handleClose={handleClose}
+                                    />
                                 </div>
                             </div>
                         )

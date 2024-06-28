@@ -24,7 +24,7 @@ interface INewBookComp {
 }
 
 const NewBookModal: React.FC<INewBookComp> = ({ open, handleClose, initialState }) => {
-    const [info, setInfo] = useState(initialState)
+    const [info, setInfo] = useState<IInitialState>(initialState)
     const { postBook } = useBookCall()
 
 

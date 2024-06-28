@@ -3,7 +3,7 @@ import { useAppDispatch } from "../app/hooks";
 import { fetchFail, fetchStart, getSuccessBook } from "../features/booksSlice";
 import axios from "axios";
 import { toastErrorNotify, toastSuccessNotify } from "../helper/ToastNotify";
-import { Book } from "../models/models";
+import { IBook } from "../models/models";
 
 
 
@@ -27,7 +27,7 @@ const useBookCall = () => {
         }
     };
 
-    const postBook = async (info: Book) => {
+    const postBook = async (info: IBook) => {
         dispatch(fetchStart());
         try {
             const data = await axios.post(`http://127.0.0.1:${PORT}/books/post`, info)
@@ -43,10 +43,20 @@ const useBookCall = () => {
         }
     }
 
+    const handleDelete = async (id: IBook) => {
+        try {
+            await axios.delete(`http://127.0.0.1:${PORT}/books/post/${id}`);
+            getData()
+        } catch (error) {
+            console.error("Failed to delete the book:", error);
+        }
+    };
+
 
     return {
         getData,
         postBook,
+        handleDelete,
         search,
         setSearch,
     }

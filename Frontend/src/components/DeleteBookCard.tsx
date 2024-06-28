@@ -7,11 +7,13 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Slide, { SlideProps } from '@mui/material/Slide';
 import { MdDeleteOutline } from "react-icons/md";
-import axios from 'axios';
+import useBookCall from '../hooks/useBookCall';
 
 interface IDeleteCard {
     id: string;
-    getData: () => void;
+    open: boolean
+    setOpen: React.Dispatch<React.SetStateAction<boolean>>
+    handleClose: () => void;
 
 }
 
@@ -19,34 +21,20 @@ const Transition = React.forwardRef<HTMLDivElement, SlideProps>(function Transit
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const PORT = import.meta.env.VITE_PORT || 8000
 
-const DeleteCard: React.FC<IDeleteCard> = ({ id, getData }) => {
-    const [open, setOpen] = React.useState(false);
+const DeleteBookCard: React.FC<IDeleteCard> = ({ id, open, setOpen, handleClose }) => {
+    const { handleDelete } = useBookCall()
+
 
     const handleClickOpen = () => {
         setOpen(true);
     };
 
-    const handleClose = () => {
+    const handleDeleteAndClose = async (id: string) => {
+        await handleDelete(id);
         setOpen(false);
     };
 
-    const handleDelete = async () => {
-        try {
-            await axios.delete(`http://127.0.0.1:${PORT}/books/post/${id}`);
-            getData()
-            setOpen(false);
-        } catch (error) {
-            console.error("Failed to delete the book:", error);
-        }
-    };
-
-    React.useEffect(() => {
-
-    }, [
-
-    ])
 
     return (
         <React.Fragment>
@@ -68,11 +56,11 @@ const DeleteCard: React.FC<IDeleteCard> = ({ id, getData }) => {
                 </DialogContent>
                 <DialogActions>
                     <Button sx={{ color: 'gray' }} onClick={handleClose}>Cancel</Button>
-                    <Button sx={{ color: 'red' }} onClick={handleDelete}>Delete</Button>
+                    <Button sx={{ color: 'red' }} onClick={() => handleDeleteAndClose(id)}>Delete</Button>
                 </DialogActions>
             </Dialog>
-        </React.Fragment>
+        </React.Fragment >
     );
 }
 
-export default DeleteCard
+export default DeleteBookCard
