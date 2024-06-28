@@ -1,35 +1,16 @@
-import { useEffect, useState } from "react";
 import SearchComp from "../components/SearchComp";
-import axios from 'axios'
 import { CiEdit } from "react-icons/ci";
 import DeleteCard from "../components/DeleteCard";
 import { Button } from "@mui/material";
-import { useAppDispatch, useAppSelector } from "../app/hooks";
-import { fetchFail, fetchStart, getSuccessBook } from "../features/booksSlice";
+import { useAppSelector } from "../app/hooks";
 import { EventFunc } from "../models/models";
-// import { MdDeleteOutline } from "react-icons/md";
+import useBookCall from "../hooks/useBookCall";
+import { useEffect } from "react";
 
 
-const PORT = import.meta.env.VITE_PORT || 8000
 const Home = () => {
-    const [search, setSearch] = useState("")
-    const dispatch = useAppDispatch()
     const { loading, error, booksList } = useAppSelector(state => state.books)
-
-    const getData = async () => {
-        dispatch(fetchStart())
-        try {
-            const { data } = await axios(`http://127.0.0.1:${PORT}/books/search?q=${search}`)
-            // const { data } = await axios(`http://127.0.0.1:${PORT}/books/`)
-            dispatch(getSuccessBook(data.post))
-            // console.log(data.post);
-
-        } catch (error) {
-            console.log(error);
-            dispatch(fetchFail())
-        }
-    }
-
+    const { getData, search, setSearch } = useBookCall()
 
 
     useEffect(() => {
@@ -59,10 +40,11 @@ const Home = () => {
                         {booksList.map((book, i) => (
                             <div key={i} className="w-full max-w-sm bg-white border text-center rounded-lg flex  flex-col justify-between">
                                 <div>
+                                    <h5 className="my-4 text-2xl font-bold tracking-tight text-blue-400 dark:text-white">{book.title}</h5>
                                     <img className="object-contain w-full rounded-t-lg h-80 md:h-auto md:w-48 md:rounded-none md:rounded-s-lg m-auto mt-4" src={book.image} alt="" />
                                 </div>
                                 <div className="flex flex-col justify-between p-4 leading-normal">
-                                    <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{book.title}</h5>
+                                    <h5 className="my-4 text-2xl font-bold tracking-tight text-red-400 dark:text-white"> {book.author}</h5>
                                     <p className="mb-3 font-normal text-gray-700 dark:text-gray-400"> <span className="font-bold">ISBN:</span> {book.ISBN}</p>
                                     <p className="mb-3 font-normal text-gray-700 dark:text-gray-400"><span className="font-bold">Publication Year: </span> {book.publicationYear}</p>
                                     <p className="mb-3 font-normal text-gray-700 dark:text-gray-400"><span className="font-bold">Genre: </span> {book.genre}</p>

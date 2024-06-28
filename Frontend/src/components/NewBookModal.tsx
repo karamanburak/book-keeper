@@ -2,9 +2,8 @@ import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import { IInitialState } from '../models/models';
 import { Button, InputLabel, MenuItem, Select, TextField } from '@mui/material';
-import axios from 'axios';
 import { useState } from 'react';
-import { toastErrorNotify, toastSuccessNotify } from '../helper/ToastNotify';
+import useBookCall from '../hooks/useBookCall';
 
 const style = {
     position: 'absolute',
@@ -23,30 +22,24 @@ interface INewBookComp {
     handleClose: () => void,
     initialState: IInitialState;
 }
-const PORT = import.meta.env.VITE_PORT || 8000
 
 const NewBookModal: React.FC<INewBookComp> = ({ open, handleClose, initialState }) => {
     const [info, setInfo] = useState(initialState)
+    const { postBook } = useBookCall()
+
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        axios.post(`http://127.0.0.1:${PORT}/books/post`, info)
-            .then(res => {
-                console.log(res);
-                handleClose();
-                toastSuccessNotify("Book successfully added")
-            })
-            .catch(err => {
-                console.log(err);
-                handleClose();
-                toastErrorNotify("Uppss! Book could not be added!")
-            })
+        postBook(info)
+        handleClose()
         setInfo(initialState)
     }
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         setInfo({ ...info, [e.target.name]: e.target.value })
     }
+
+
 
 
     return (

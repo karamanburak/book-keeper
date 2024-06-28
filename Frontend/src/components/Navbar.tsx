@@ -16,10 +16,12 @@ const Navbar = () => {
         image: "",
     })
 
+
+
     return (
         <div>
-            <div className="flex justify-between h-[80px] w-full text-white bg-main-green items-center px-5 text-xl fixed top-0 z-10">
-                <h2 className="font-bold size-[4re] ">Book Store</h2>
+            <div className="flex justify-between h-[80px] w-full text-white bg-main-green items-center px-5 text-xl ">
+                <h2 className="font-bold size-[4re] ">Book Keeper</h2>
                 <Button sx={{ color: "white", fontWeight: "bold" }} onClick={handleOpen}>Add New Book</Button>
             </div>
             <NewBookModal
