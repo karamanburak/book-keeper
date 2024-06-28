@@ -15,10 +15,6 @@ const Home = () => {
     const [open, setOpen] = useState(false);
 
 
-    const handleClose = () => {
-        setOpen(false);
-    };
-
     useEffect(() => {
         getData()
     }, [search])
@@ -63,7 +59,6 @@ const Home = () => {
                                         id={book._id}
                                         open={open}
                                         setOpen={setOpen}
-                                        handleClose={handleClose}
                                     />
                                 </div>
                             </div>

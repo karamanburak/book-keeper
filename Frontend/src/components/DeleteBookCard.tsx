@@ -13,7 +13,6 @@ interface IDeleteCard {
     id: string;
     open: boolean
     setOpen: React.Dispatch<React.SetStateAction<boolean>>
-    handleClose: () => void;
 
 }
 
@@ -22,13 +21,9 @@ const Transition = React.forwardRef<HTMLDivElement, SlideProps>(function Transit
 });
 
 
-const DeleteBookCard: React.FC<IDeleteCard> = ({ id, open, setOpen, handleClose }) => {
+const DeleteBookCard: React.FC<IDeleteCard> = ({ id, open, setOpen }) => {
     const { handleDelete } = useBookCall()
 
-
-    const handleClickOpen = () => {
-        setOpen(true);
-    };
 
     const handleDeleteAndClose = async (id: string) => {
         await handleDelete(id)
@@ -38,15 +33,16 @@ const DeleteBookCard: React.FC<IDeleteCard> = ({ id, open, setOpen, handleClose 
 
     return (
         <React.Fragment>
-            <Button variant="contained" sx={{ bgcolor: "red" }} onClick={handleClickOpen}>
+            <Button variant="contained" sx={{ bgcolor: "red" }} onClick={() => setOpen(true)}>
                 <MdDeleteOutline className='text-xl' />
             </Button>
             <Dialog
                 open={open}
                 TransitionComponent={Transition}
                 keepMounted
-                onClose={handleClose}
+                onClose={() => setOpen(false)}
                 aria-describedby="alert-dialog-slide-description"
+
             >
                 <DialogTitle>{"Confirm Delete"}</DialogTitle>
                 <DialogContent>
@@ -55,7 +51,7 @@ const DeleteBookCard: React.FC<IDeleteCard> = ({ id, open, setOpen, handleClose 
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    <Button sx={{ color: 'gray' }} onClick={handleClose}>Cancel</Button>
+                    <Button sx={{ color: 'gray' }} onClick={() => setOpen(false)}>Cancel</Button>
                     <Button sx={{ color: 'red' }} onClick={() => handleDeleteAndClose(id)}>Delete</Button>
                 </DialogActions>
             </Dialog>
