@@ -12,7 +12,7 @@ const Navbar = () => {
         author: "",
         ISBN: 0,
         genre: "",
-        publicationYear: 0,
+        publicationYear: 2024,
         image: "",
     })
 

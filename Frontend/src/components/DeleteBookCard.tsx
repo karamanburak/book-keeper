@@ -31,7 +31,7 @@ const DeleteBookCard: React.FC<IDeleteCard> = ({ id, open, setOpen, handleClose 
     };
 
     const handleDeleteAndClose = async (id: string) => {
-        await handleDelete(id);
+        await handleDelete(id)
         setOpen(false);
     };
 

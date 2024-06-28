@@ -43,7 +43,7 @@ const useBookCall = () => {
         }
     }
 
-    const handleDelete = async (id: IBook) => {
+    const handleDelete = async (id: string) => {
         try {
             await axios.delete(`http://127.0.0.1:${PORT}/books/post/${id}`);
             getData()

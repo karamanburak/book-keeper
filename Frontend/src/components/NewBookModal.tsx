@@ -1,6 +1,6 @@
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
-import { IInitialState } from '../models/models';
+import { IBook, IInitialState } from '../models/models';
 import { Button, InputLabel, MenuItem, Select, TextField } from '@mui/material';
 import { useState } from 'react';
 import useBookCall from '../hooks/useBookCall';
@@ -30,7 +30,7 @@ const NewBookModal: React.FC<INewBookComp> = ({ open, handleClose, initialState 
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        postBook(info)
+        postBook(info as IBook)
         handleClose()
         setInfo(initialState)
     }
