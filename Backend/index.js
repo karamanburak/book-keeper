@@ -21,13 +21,30 @@ const PORT = process.env?.PORT || 5173;
 //! cors
 // app.use(cors()); //* tüm istemci urllerine ve tüm http methodlara izin verir.
 
-//* specific
-app.use(
-  cors({
-    origin: "https://book-keeper-fs.vercel.app", //* sondaki slash olmayacak. sadece localhost:3000 e izin ver. Host adresi
-    methods: "GET,HEAD,PUT,PATCH,POST,DELETE", //* methodlara verilecek izinleri ayarlanabilir.
-  })
-);
+//* specific 1
+// app.use(
+//   cors({
+//     origin: "https://book-keeper-fs.vercel.app" || "http://localhost:5173", //* sondaki slash olmayacak. sadece localhost:3000 e izin ver. Host adresi
+//     methods: "GET,HEAD,PUT,PATCH,POST,DELETE", //* methodlara verilecek izinleri ayarlanabilir.
+//   })
+// );
+
+//* specific 2
+app.use((req, res, next) => {
+  const corsWhitelist = [
+    "https://book-keeper-fs.vercel.app",
+    "http://localhost:5173",
+  ];
+  if (corsWhitelist.indexOf(req.headers.origin) !== -1) {
+    res.header("Access-Control-Allow-Origin", req.headers.origin);
+    res.header(
+      "Access-Control-Allow-Headers",
+      "Origin, X-Requested-With, Content-Type, Accept"
+    );
+  }
+
+  next();
+});
 
 app.use(express.json());
 require("./src/configs/dbConnection");
