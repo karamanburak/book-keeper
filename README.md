@@ -3,7 +3,7 @@
 ## Introduction
 This project is a full stack web application that uses a React frontend with TypeScript, a Node.js backend, and a MongoDB database. It demonstrates a typical setup for a modern web application with client-server architecture.
 ## Features
-- CRUD operations for user data
+- CRUD operations for book data
 - Responsive design
 - RESTful API
 ## Technologies
@@ -18,6 +18,7 @@ This project is a full stack web application that uses a React frontend with Typ
 - Express
 - MongoDB
 - Mongoose (for MongoDB object modeling)
+- CORS (Cross-Origin Resource Sharing)
 
 ## Getting Started
 ### Prerequisites
