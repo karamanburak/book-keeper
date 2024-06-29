@@ -10,11 +10,25 @@ const style = {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: 400,
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
+    width: { xs: 300, sm: 600 },
+    maxHeight: '100vh',
+    bgcolor: '#baebebf2',
     boxShadow: 24,
-    p: 4,
+    borderRadius: 5,
+    p: 5,
+    overflowY: 'hidden',
+};
+const formStyle = {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 2,
+    maxHeight: '70vh',
+    overflowY: 'scroll',
+    msOverflowStyle: 'none',
+    scrollbarWidth: 'none',
+    '&::-webkit-scrollbar': {
+        display: 'none',
+    },
 };
 
 interface INewBookComp {
@@ -23,14 +37,18 @@ interface INewBookComp {
     initialState: IInitialState;
 }
 
-const NewBookModal: React.FC<INewBookComp> = ({ open, handleClose, initialState }) => {
+const BookModal: React.FC<INewBookComp> = ({ open, handleClose, initialState }) => {
     const [info, setInfo] = useState<IInitialState>(initialState)
-    const { postBook } = useBookCall()
+    const { postBook, putBook } = useBookCall()
 
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        postBook(info as IBook)
+        if (info._id) {
+            putBook(info as IBook)
+        } else {
+            postBook(info as IBook)
+        }
         handleClose()
         setInfo(initialState)
     }
@@ -53,7 +71,7 @@ const NewBookModal: React.FC<INewBookComp> = ({ open, handleClose, initialState 
                 <Box
                     component="form"
                     onSubmit={handleSubmit}
-                    sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+                    sx={formStyle}>
                     <TextField
                         label="Book Name"
                         name="title"
@@ -130,8 +148,10 @@ const NewBookModal: React.FC<INewBookComp> = ({ open, handleClose, initialState 
                     />
                     <Button
                         variant="contained"
-                        type="submit">
-                        Create New Book
+                        type="submit"
+                        sx={{ backgroundColor: "red" }}
+                    >
+                        {info._id ? "Edit Book" : "Create New Book"}
                     </Button>
                 </Box>
             </Box>
@@ -139,4 +159,4 @@ const NewBookModal: React.FC<INewBookComp> = ({ open, handleClose, initialState 
     )
 };
 
-export default NewBookModal;
+export default BookModal;

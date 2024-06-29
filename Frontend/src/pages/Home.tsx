@@ -1,18 +1,40 @@
 import SearchComp from "../components/SearchComp";
-// import { CiEdit } from "react-icons/ci";
-// import { Button } from "@mui/material";
+import { CiEdit } from "react-icons/ci";
+import { Button } from "@mui/material";
 import { useAppSelector } from "../app/hooks";
 import { EventFunc } from "../models/models";
 import useBookCall from "../hooks/useBookCall";
 import { useEffect, useState } from "react";
 import DeleteBookCard from "../components/DeleteBookCard";
-import UpdateBook from "../components/UpdateBook";
+import BookModal from "../components/BookModal";
 
 
 const Home = () => {
     const { loading, error, booksList } = useAppSelector(state => state.books)
     const { getData, search, setSearch } = useBookCall()
-    const [open, setOpen] = useState(false);
+    const [openEdit, setOpenEdit] = useState(false);
+    const [openDelete, setOpenDelete] = useState(false);
+    const [selectedBook, setSelectedBook] = useState(null);
+
+    const handleEditOpen = (book) => {
+        setSelectedBook(book);
+        setOpenEdit(true);
+    };
+
+    const handleEditClose = () => {
+        setOpenEdit(false);
+        setSelectedBook(null);
+    };
+
+    const handleDeleteOpen = (book) => {
+        setSelectedBook(book);
+        setOpenDelete(true);
+    };
+
+    const handleDeleteClose = () => {
+        setOpenDelete(false);
+        setSelectedBook(null);
+    };
 
 
     useEffect(() => {
@@ -40,10 +62,10 @@ const Home = () => {
                 ) : (
                     <div className=" flex justify-center items-stretch gap-6 mt-6 flex-wrap">
                         {booksList.map((book, i) => (
-                            <div key={i} className="w-full max-w-sm bg-white border text-center rounded-lg flex  flex-col justify-between">
-                                <div>
+                            <div key={i} className="xs:w-75 md:w-full max-w-sm bg-white border text-center rounded-lg flex  flex-col justify-between " >
+                                <div style={{ width: "300px", margin: "auto" }}>
                                     <h5 className="my-4 text-2xl font-bold tracking-tight text-blue-400 dark:text-white">{book.title}</h5>
-                                    <img className="object-contain w-full rounded-t-lg h-80 md:h-auto md:w-48 md:rounded-none md:rounded-s-lg m-auto mt-4" src={book.image} alt="" />
+                                    <img className="book-img object-contain w-full rounded-t-lg h-80 md:h-auto md:w-48 md:rounded-none md:rounded-s-lg m-auto mt-4 h transition-transform" src={book.image} alt="" />
                                 </div>
                                 <div className="flex flex-col justify-between p-4 leading-normal">
                                     <h5 className="my-4 text-2xl font-bold tracking-tight text-red-400 dark:text-white"> {book.author}</h5>
@@ -52,15 +74,23 @@ const Home = () => {
                                     <p className="mb-3 font-normal text-gray-700 dark:text-gray-400"><span className="font-bold">Genre: </span> {book.genre}</p>
                                 </div>
                                 <div className="flex justify-center gap-3 pb-4">
-                                    {/* <Button variant="contained"> <CiEdit className="size-6" /></Button> */}
+                                    <Button variant="contained" onClick={() => handleEditOpen(book)}> <CiEdit className="size-6" /></Button>
                                     {/* <button> <MdDeleteOutline className="size-8 hover:text-red-700" /></button> */}
-                                    <UpdateBook />
                                     <DeleteBookCard
                                         id={book._id}
-                                        open={open}
-                                        setOpen={setOpen}
+                                        open={openDelete}
+                                        setOpen={setOpenDelete}
+                                        handleOpen={() => handleDeleteOpen(book)}
+                                        handleClose={handleDeleteClose}
                                     />
                                 </div>
+                                {selectedBook && (
+                                    <BookModal
+                                        open={openEdit}
+                                        handleClose={handleEditClose}
+                                        initialState={selectedBook}
+                                    />
+                                )}
                             </div>
                         )
                         )}
@@ -70,7 +100,7 @@ const Home = () => {
             )
             }
             <div className="p-6"></div>
-        </div>
+        </div >
     );
 };
 

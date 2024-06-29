@@ -4,6 +4,8 @@ import Navbar from "./components/Navbar";
 import { Provider } from "react-redux";
 import { store } from "./app/store";
 import { ToastContainer } from "react-toastify";
+import './App.css'
+
 
 // import './App.css'
 function App() {

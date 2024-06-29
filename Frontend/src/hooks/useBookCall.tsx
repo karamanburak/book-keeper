@@ -30,13 +30,29 @@ const useBookCall = () => {
     const postBook = async (info: IBook) => {
         dispatch(fetchStart());
         try {
-            const data = await axios.post(`http://127.0.0.1:${PORT}/books/post`, info)
+            const { data } = await axios.post(`http://127.0.0.1:${PORT}/books/post`, info)
             toastSuccessNotify("Book successfully added")
             console.log(data);
 
         } catch (error) {
             console.log(error);
             toastErrorNotify("Uppss! Book could not be added!")
+
+        } finally {
+            getData()
+        }
+    }
+    const putBook = async (info: IBook) => {
+        dispatch(fetchStart());
+        try {
+            const { data } = await axios.put(`http://127.0.0.1:${PORT}/books/post/${info._id}`, info)
+            console.log(data);
+
+            toastSuccessNotify("Book successfully edited")
+
+        } catch (error) {
+            console.log(error);
+            toastErrorNotify("Uppss! Book could not be edited!")
 
         } finally {
             getData()
@@ -56,6 +72,7 @@ const useBookCall = () => {
     return {
         getData,
         postBook,
+        putBook,
         handleDelete,
         search,
         setSearch,

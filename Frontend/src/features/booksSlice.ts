@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import { Book } from "../models/models";
+import { IBook } from "../models/models";
 
 // export interface Book {
 //   id: number;
@@ -16,7 +16,7 @@ import { Book } from "../models/models";
 interface BooksState {
   loading: boolean;
   error: boolean;
-  booksList: Book[];
+  booksList: IBook[];
 }
 
 // Define the initial state using that type
@@ -37,7 +37,7 @@ export const booksSlice = createSlice({
     },
 
     // Use the PayloadAction type to declare the contents of `action.payload`
-    getSuccessBook(state, action: PayloadAction<Book[]>) {
+    getSuccessBook(state, action: PayloadAction<IBook[]>) {
       state.loading = false;
       state.error = false;
       state.booksList = action.payload;
