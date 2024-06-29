@@ -8,7 +8,7 @@ const Navbar = () => {
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
     const [initialState] = useState<IInitialState>({
-        // _id: "",
+        // _id: "", // optional
         title: "",
         author: "",
         ISBN: 0,

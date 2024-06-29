@@ -2,13 +2,11 @@ import SearchComp from "../components/SearchComp";
 import { CiEdit } from "react-icons/ci";
 import { Button } from "@mui/material";
 import { useAppSelector } from "../app/hooks";
-import { EventFunc } from "../models/models";
+import { EventFunc, IBook } from "../models/models";
 import useBookCall from "../hooks/useBookCall";
 import { useEffect, useState } from "react";
 import DeleteBookCard from "../components/DeleteBookCard";
 import BookModal from "../components/BookModal";
-
-
 
 
 const Home = () => {
@@ -16,9 +14,9 @@ const Home = () => {
     const { getData, search, setSearch } = useBookCall()
     const [openEdit, setOpenEdit] = useState(false);
     const [openDelete, setOpenDelete] = useState(false);
-    const [selectedBook, setSelectedBook] = useState(null);
+    const [selectedBook, setSelectedBook] = useState<IBook | null>(null);
 
-    const handleEditOpen = (book) => {
+    const handleEditOpen = (book: IBook) => {
         setSelectedBook(book);
         setOpenEdit(true);
     };
@@ -28,15 +26,6 @@ const Home = () => {
         setSelectedBook(null);
     };
 
-    const handleDeleteOpen = (book) => {
-        setSelectedBook(book);
-        setOpenDelete(true);
-    };
-
-    const handleDeleteClose = () => {
-        setOpenDelete(false);
-        setSelectedBook(null);
-    };
 
 
     useEffect(() => {
@@ -82,8 +71,6 @@ const Home = () => {
                                         id={book._id}
                                         open={openDelete}
                                         setOpen={setOpenDelete}
-                                        handleOpen={() => handleDeleteOpen(book)}
-                                        handleClose={handleDeleteClose}
                                     />
                                 </div>
                                 {selectedBook && (

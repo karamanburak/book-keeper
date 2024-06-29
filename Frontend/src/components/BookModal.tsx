@@ -1,7 +1,7 @@
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import { IBook, IInitialState } from '../models/models';
-import { Button, InputLabel, MenuItem, Select, TextField } from '@mui/material';
+import { Button, InputLabel, MenuItem, Select, SelectChangeEvent, TextField } from '@mui/material';
 import { useState } from 'react';
 import useBookCall from '../hooks/useBookCall';
 
@@ -53,8 +53,14 @@ const BookModal: React.FC<INewBookComp> = ({ open, handleClose, initialState }) 
         setInfo(initialState)
     }
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-        setInfo({ ...info, [e.target.name]: e.target.value })
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        const { name, value } = e.target;
+        setInfo({ ...info, [name]: value });
+    }
+
+    const handleSelectChange = (e: SelectChangeEvent<number>) => {
+        const { name, value } = e.target;
+        setInfo({ ...info, [name]: value as number });
     }
 
 
@@ -78,7 +84,7 @@ const BookModal: React.FC<INewBookComp> = ({ open, handleClose, initialState }) 
                         id="title"
                         type="text"
                         variant="outlined"
-                        onChange={handleChange}
+                        onChange={handleInputChange}
                         value={info.title}
                         color="success"
                     />
@@ -88,7 +94,7 @@ const BookModal: React.FC<INewBookComp> = ({ open, handleClose, initialState }) 
                         id="author"
                         type="text"
                         variant="outlined"
-                        onChange={handleChange}
+                        onChange={handleInputChange}
                         value={info.author}
                         color="success"
                     />
@@ -98,7 +104,7 @@ const BookModal: React.FC<INewBookComp> = ({ open, handleClose, initialState }) 
                         id="ISBN"
                         type="number"
                         variant="outlined"
-                        onChange={handleChange}
+                        onChange={handleInputChange}
                         value={info.ISBN}
                         color="success"
                     />
@@ -108,7 +114,7 @@ const BookModal: React.FC<INewBookComp> = ({ open, handleClose, initialState }) 
                         label="Publication Year"
                         id="publicationYear"
                         name="publicationYear"
-                        onChange={handleChange}
+                        onChange={handleSelectChange}
                         value={info.publicationYear}
                         color="success"
                         type="number"
@@ -132,7 +138,7 @@ const BookModal: React.FC<INewBookComp> = ({ open, handleClose, initialState }) 
                         id="genre"
                         type="text"
                         variant="outlined"
-                        onChange={handleChange}
+                        onChange={handleInputChange}
                         value={info.genre}
                         color="success"
                     />
@@ -142,7 +148,7 @@ const BookModal: React.FC<INewBookComp> = ({ open, handleClose, initialState }) 
                         id="image"
                         type="text"
                         variant="outlined"
-                        onChange={handleChange}
+                        onChange={handleInputChange}
                         value={info.image}
                         color="success"
                     />
