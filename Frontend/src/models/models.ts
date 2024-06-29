@@ -11,7 +11,7 @@ export interface IBook {
 }
 
 export interface IInitialState {
-  // _id: string;
+  _id: string;
   title: string;
   author: string;
   ISBN: number;
