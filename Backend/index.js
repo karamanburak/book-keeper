@@ -24,7 +24,7 @@ const PORT = process.env?.PORT || 5173;
 //* specific
 app.use(
   cors({
-    origin: "http://localhost:5173", //* sondaki slash olmayacak. sadece localhost:3000 e izin ver. Host adresi
+    origin: "https://book-keeper-fs.vercel.app", //* sondaki slash olmayacak. sadece localhost:3000 e izin ver. Host adresi
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE", //* methodlara verilecek izinleri ayarlanabilir.
   })
 );
