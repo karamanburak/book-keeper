@@ -8,7 +8,7 @@ import { IBook } from "../models/models";
 
 
 const useBookCall = () => {
-    const PORT = import.meta.env.VITE_PORT
+    // const PORT = import.meta.env.VITE_PORT
     const [search, setSearch] = useState("");
     const dispatch = useAppDispatch();
 
@@ -16,9 +16,9 @@ const useBookCall = () => {
         dispatch(fetchStart());
         try {
             const { data } = await axios(
-                `https://book-keeper-cicn.onrender.com/:${PORT}/books/search?q=${search}`
+                `https://book-keeper-cicn.onrender.com/books/search?q=${search}`
             );
-            // const { data } = await axios(`https://book-keeper-cicn.onrender.com/:${PORT}/books/`)
+            // const { data } = await axios(`https://book-keeper-cicn.onrender.com/books/`)
             dispatch(getSuccessBook(data.post));
             // console.log(data.post);
         } catch (error) {
@@ -30,7 +30,7 @@ const useBookCall = () => {
     const postBook = async (info: IBook) => {
         dispatch(fetchStart());
         try {
-            const { data } = await axios.post(`https://book-keeper-cicn.onrender.com/:${PORT}/books/post`, info)
+            const { data } = await axios.post(`https://book-keeper-cicn.onrender.com/books/post`, info)
             toastSuccessNotify("Book successfully added")
             console.log(data);
 
@@ -45,7 +45,7 @@ const useBookCall = () => {
     const putBook = async (info: IBook) => {
         dispatch(fetchStart());
         try {
-            const { data } = await axios.put(`https://book-keeper-cicn.onrender.com/:${PORT}/books/post/${info._id}`, info)
+            const { data } = await axios.put(`https://book-keeper-cicn.onrender.com/books/post/${info._id}`, info)
             console.log(data);
 
             toastSuccessNotify("Book successfully edited")
@@ -61,7 +61,7 @@ const useBookCall = () => {
 
     const handleDelete = async (id: string) => {
         try {
-            await axios.delete(`https://book-keeper-cicn.onrender.com/:${PORT}/books/post/${id}`);
+            await axios.delete(`https://book-keeper-cicn.onrender.com/books/post/${id}`);
             getData()
         } catch (error) {
             console.error("Failed to delete the book:", error);
