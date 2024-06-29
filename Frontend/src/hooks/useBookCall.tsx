@@ -16,9 +16,9 @@ const useBookCall = () => {
         dispatch(fetchStart());
         try {
             const { data } = await axios(
-                `http://127.0.0.1:${PORT}/books/search?q=${search}`
+                `https://book-keeper-cicn.onrender.com/:${PORT}/books/search?q=${search}`
             );
-            // const { data } = await axios(`http://127.0.0.1:${PORT}/books/`)
+            // const { data } = await axios(`https://book-keeper-cicn.onrender.com/:${PORT}/books/`)
             dispatch(getSuccessBook(data.post));
             // console.log(data.post);
         } catch (error) {
@@ -30,7 +30,7 @@ const useBookCall = () => {
     const postBook = async (info: IBook) => {
         dispatch(fetchStart());
         try {
-            const { data } = await axios.post(`http://127.0.0.1:${PORT}/books/post`, info)
+            const { data } = await axios.post(`https://book-keeper-cicn.onrender.com/:${PORT}/books/post`, info)
             toastSuccessNotify("Book successfully added")
             console.log(data);
 
@@ -45,7 +45,7 @@ const useBookCall = () => {
     const putBook = async (info: IBook) => {
         dispatch(fetchStart());
         try {
-            const { data } = await axios.put(`http://127.0.0.1:${PORT}/books/post/${info._id}`, info)
+            const { data } = await axios.put(`https://book-keeper-cicn.onrender.com/:${PORT}/books/post/${info._id}`, info)
             console.log(data);
 
             toastSuccessNotify("Book successfully edited")
@@ -61,7 +61,7 @@ const useBookCall = () => {
 
     const handleDelete = async (id: string) => {
         try {
-            await axios.delete(`http://127.0.0.1:${PORT}/books/post/${id}`);
+            await axios.delete(`https://book-keeper-cicn.onrender.com/:${PORT}/books/post/${id}`);
             getData()
         } catch (error) {
             console.error("Failed to delete the book:", error);
