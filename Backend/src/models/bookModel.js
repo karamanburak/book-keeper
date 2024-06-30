@@ -6,12 +6,12 @@ const bookPostSchema = new mongoose.Schema(
     title: {
       type: String,
       trim: true,
-      required: [true, "The Book must have title!"],
+      required: true,
       unique: true,
     },
     author: {
       type: String,
-      required: [true, "The Book must have a author!"],
+      required: true,
     },
     ISBN: {
       type: Number,
@@ -27,7 +27,7 @@ const bookPostSchema = new mongoose.Schema(
     },
     image: {
       type: String,
-      required: [true, "The Book must have a image!"],
+      required: true,
       unique: true,
     },
   },
